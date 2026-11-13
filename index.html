@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ВкусноДом — домашние рецепты с пошаговыми инструкциями</title>
+<meta name="description" content="24 проверенных домашних рецептов с пошаговыми инструкциями: супы, основные блюда, выпечка, салаты и десерты.">
+<link rel="stylesheet" href="style.css"><link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍲</text></svg>">
+</head><body>
+<nav><div class="wrap"><div class="logo">ВкусноДом<span>.ру</span></div>
+<div><a href="#">Рецепты</a><button id="theme" title="Тема">🌙</button></div></div></nav>
+<header><div class="wrap">
+<h1>Готовим дома —<br>просто и вкусно</h1>
+<p class="sub">Каждый рецепт — с точными граммами, минутами и пошаговой инструкцией. Никакой воды, только то, что нужно на кухне.</p>
+<div class="stats"><div><b>24</b>рецептов</div><div><b>5</b>категорий</div><div><b>100%</b>проверено</div></div>
+</div></header>
+<div class="wrap">
+<div class="controls">
+<div class="search"><input id="q" type="search" placeholder="Найти рецепт: борщ, блины, плов…" aria-label="Поиск рецептов"></div>
+<div class="cats">
+<button class="cat on" data-c="all">Все</button>
+<button class="cat" data-c="Супы">🍲 Супы</button><button class="cat" data-c="Основные">🍖 Основные</button><button class="cat" data-c="Выпечка">🥐 Выпечка</button><button class="cat" data-c="Салаты">🥗 Салаты</button><button class="cat" data-c="Десерты">🍰 Десерты</button>
+</div></div>
+<div class="grid" id="grid">
+<a class="card" href="recipe/borsch.html" data-cat="Супы"><div class="cover">🍲</div><div class="pbody"><div class="ptime">⏱ 90 мин · 🔥🔥</div><h3>Борщ классический</h3><p>Наваристый борщ на говядине со свёклой, капустой и сметаной. Главный суп русской кухни.</p></div></a>
+<a class="card" href="recipe/solyanka.html" data-cat="Супы"><div class="cover">🥘</div><div class="pbody"><div class="ptime">⏱ 75 мин · 🔥🔥</div><h3>Солянка мясная</h3><p>Густая сборная солянка с копчёностями, солёными огурцами и маслинами.</p></div></a>
+<a class="card" href="recipe/kuriniriksha.html" data-cat="Супы"><div class="cover">🍜</div><div class="pbody"><div class="ptime">⏱ 50 мин · 🔥</div><h3>Куриный суп с лапшой</h3><p>Домашний куриный суп с лапшой — то, что лечит всё на свете.</p></div></a>
+<a class="card" href="recipe/gorohoviy.html" data-cat="Супы"><div class="cover">🥣</div><div class="pbody"><div class="ptime">⏱ 80 мин · 🔥</div><h3>Гороховый суп с копчёностями</h3><p>Густой суп из жёлтого гороха с ароматными копчёностями и сухариками.</p></div></a>
+<a class="card" href="recipe/pilaf.html" data-cat="Основные"><div class="cover">🍚</div><div class="pbody"><div class="ptime">⏱ 100 мин · 🔥🔥🔥</div><h3>Плов узбекский</h3><p>Настоящий плов с бараниной, морковью и зирой — рассыпчатый, золотистый.</p></div></a>
+<a class="card" href="recipe/karbonara.html" data-cat="Основные"><div class="cover">🍝</div><div class="pbody"><div class="ptime">⏱ 25 мин · 🔥</div><h3>Паста карбонара</h3><p>Классика Рима: спагетти с беконом, яйцами и пармезаном. Без сливок — как положено!</p></div></a>
+<a class="card" href="recipe/lazania.html" data-cat="Основные"><div class="cover">🧀</div><div class="pbody"><div class="ptime">⏱ 90 мин · 🔥🔥</div><h3>Лазанья болонезе</h3><p>Слои пасты, мясного рагу и соуса бешамель под золотистой сырной корочкой.</p></div></a>
+<a class="card" href="recipe/kotlety.html" data-cat="Основные"><div class="cover">🍔</div><div class="pbody"><div class="ptime">⏱ 50 мин · 🔥</div><h3>Котлеты домашние</h3><p>Сочные котлеты с луком и хлебным мякишем — как у бабушки.</p></div></a>
+<a class="card" href="recipe/shashlik.html" data-cat="Основные"><div class="cover">🍢</div><div class="pbody"><div class="ptime">⏱ 120 мин · 🔥</div><h3>Шашлык из свинины</h3><p>Мягкий шашлык в маринаде из лука и специй. Лето начинается с него.</p></div></a>
+<a class="card" href="recipe/zharcoe.html" data-cat="Основные"><div class="cover">🥔</div><div class="pbody"><div class="ptime">⏱ 100 мин · 🔥🔥</div><h3>Жаркое с говядиной в горшочках</h3><p>Мясо, томлёное с картофелем и грибами в горшочках. Мясо становится мягким как масло.</p></div></a>
+<a class="card" href="recipe/gribigrechka.html" data-cat="Основные"><div class="cover">🌾</div><div class="pbody"><div class="ptime">⏱ 40 мин · 🔥</div><h3>Гречка с грибами по-купечески</h3><p>Рассыпчатая гречка с жареными грибами и луком — простой и сытный ужин.</p></div></a>
+<a class="card" href="recipe/blini.html" data-cat="Выпечка"><div class="cover">🥞</div><div class="pbody"><div class="ptime">⏱ 45 мин · 🔥🔥</div><h3>Блины тонкие на молоке</h3><p>Кружевные тонкие блины с дырочками — на молоке, с румяными краями.</p></div></a>
+<a class="card" href="recipe/syirniki.html" data-cat="Выпечка"><div class="cover">🧈</div><div class="pbody"><div class="ptime">⏱ 30 мин · 🔥</div><h3>Сырники пышные</h3><p>Нежные сырники из творога с золотистой корочкой. Идеальный завтрак.</p></div></a>
+<a class="card" href="recipe/sharlotka.html" data-cat="Выпечка"><div class="cover">🍎</div><div class="pbody"><div class="ptime">⏱ 60 мин · 🔥</div><h3>Шарлотка с яблоками</h3><p>Воздушный бисквит с яблоками и корицей. Тесто делается за 10 минут.</p></div></a>
+<a class="card" href="recipe/pirozhki.html" data-cat="Выпечка"><div class="cover">🥟</div><div class="pbody"><div class="ptime">⏱ 90 мин · 🔥🔥</div><h3>Пирожки с картошкой жареные</h3><p>Пышные жареные пирожки с нежной картофельной начинкой.</p></div></a>
+<a class="card" href="recipe/pizza.html" data-cat="Выпечка"><div class="cover">🍕</div><div class="pbody"><div class="ptime">⏱ 60 мин · 🔥🔥</div><h3>Пицца домашняя</h3><p>Тонкое тесто, томатный соус и много сыра. Домашняя пицца лучше доставки.</p></div></a>
+<a class="card" href="recipe/oladi.html" data-cat="Выпечка"><div class="cover">🥯</div><div class="pbody"><div class="ptime">⏱ 25 мин · 🔥</div><h3>Оладьи на кефире</h3><p>Пышные оладушки, которые не опадают. С мёдом или вареньем — идеально.</p></div></a>
+<a class="card" href="recipe/olivie.html" data-cat="Салаты"><div class="cover">🥗</div><div class="pbody"><div class="ptime">⏱ 60 мин · 🔥</div><h3>Салат Оливье</h3><p>Главный салат новогоднего стола. Классический рецепт с докторской колбасой.</p></div></a>
+<a class="card" href="recipe/cezar.html" data-cat="Салаты"><div class="cover">🥬</div><div class="pbody"><div class="ptime">⏱ 35 мин · 🔥🔥</div><h3>Салат Цезарь с курицей</h3><p>Хрустящий ромэн, курица-гриль, пармезан и правильный соус с анчоусами.</p></div></a>
+<a class="card" href="recipe/grecheskiy.html" data-cat="Салаты"><div class="cover">🫒</div><div class="pbody"><div class="ptime">⏱ 15 мин · 🔥</div><h3>Греческий салат</h3><p>Свежие овощи, фета и оливки с оливковым маслом и орегано.</p></div></a>
+<a class="card" href="recipe/medovik.html" data-cat="Десерты"><div class="cover">🍯</div><div class="pbody"><div class="ptime">⏱ 150 мин · 🔥🔥🔥</div><h3>Торт Медовик</h3><p>Восемь тонких медовых коржей со сметанным кремом. Тает во рту.</p></div></a>
+<a class="card" href="recipe/tiramisu.html" data-cat="Десерты"><div class="cover">☕</div><div class="pbody"><div class="ptime">⏱ 40 мин · 🔥🔥</div><h3>Тирамису</h3><p>Кофейный десерт с маскарпоне — без выпечки, только сборка и ночь в холодильнике.</p></div></a>
+<a class="card" href="recipe/fondan.html" data-cat="Десерты"><div class="cover">🍫</div><div class="pbody"><div class="ptime">⏱ 25 мин · 🔥🔥</div><h3>Шоколадный фондан</h3><p>Кекс с жидким шоколадным сердцем. Подавайте тёплым с шариком мороженого.</p></div></a>
+<a class="card" href="recipe/pannacotta.html" data-cat="Десерты"><div class="cover">🍮</div><div class="pbody"><div class="ptime">⏱ 20 мин · 🔥</div><h3>Панна-котта с ягодами</h3><p>Шёлковый итальянский десерт из сливок с ванилью и ягодным соусом.</p></div></a>
+</div>
+<p id="empty" style="display:none;text-align:center;color:var(--mut);padding:40px 0">Ничего не нашлось 😔 Попробуйте другой запрос.</p>
+</div>
+<footer>© 2026 ВкусноДом — домашняя кухня каждый день<br><small>Рецепты проверены на собственной кухне. Приятного аппетита!</small></footer>
+<script src="data.js"></script>
+<script>
+const grid=document.getElementById('grid'),q=document.getElementById('q'),empty=document.getElementById('empty');
+let curCat='all';
+document.querySelectorAll('.cat').forEach(b=>b.onclick=()=>{document.querySelectorAll('.cat').forEach(x=>x.classList.remove('on'));b.classList.add('on');curCat=b.dataset.c;filter();});
+q.oninput=filter;
+function filter(){let n=0;grid.querySelectorAll('.card').forEach(c=>{const t=RECIPES.find(r=>c.getAttribute('href')==='recipe/'+r.id+'.html');
+const ok=(curCat==='all'||c.dataset.cat===curCat)&&(!q.value||c.textContent.toLowerCase().includes(q.value.toLowerCase()));
+c.style.display=ok?'':'none';if(ok)n++;});empty.style.display=n?'none':'block';}
+const th=document.getElementById('theme');
+th.onclick=()=>{const d=document.documentElement;const dark=d.dataset.theme==='dark';dark?delete d.dataset.theme:d.dataset.theme='dark';th.textContent=dark?'🌙':'☀️';localStorage.setItem('theme',dark?'':'dark');};
+if(localStorage.getItem('theme')==='dark'){document.documentElement.dataset.theme='dark';th.textContent='☀️';}
+</script></body></html>
