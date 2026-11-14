@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://archivRX.github.io/vkusnodom/sitemap.xml
+Sitemap: https://archivrx.github.io/vkusnodom/sitemap.xml

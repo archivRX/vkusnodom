@@ -1,253 +1,175 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ВкусноДом — домашние рецепты</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ВкусноДом — 24 домашних рецепта с пошаговыми инструкциями</title>
+<meta name="description" content="24 проверенных домашних рецепта с пошаговыми инструкциями: супы, основные блюда, выпечка, салаты и десерты. Поиск по ингредиентам, список покупок.">
+<meta property="og:title" content="ВкусноДом — домашние рецепты">
+<meta property="og:description" content="24 проверенных рецепта, поиск по ингредиентам и список покупок в один клик.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>ВкусноДом</h1>
-    <p>24 проверенных домашних рецепта</p>
-  </header>
-
-  <div class="controls">
-    <input type="text" id="search-input" placeholder="Поиск рецепта (название, ингредиент)...">
-    <div id="filters" style="display:flex; flex-wrap:wrap; gap:8px;"></div>
+<nav class="nav">
+  <a class="logo" href="index.html">🍳 ВкусноДом</a>
+  <button class="theme-btn" id="theme-btn" title="Тёмная тема">🌙</button>
+</nav>
+<header class="hero">
+  <h1>Что готовим сегодня?</h1>
+  <p>24 проверенных домашних рецепта • поиск по ингредиентам • список покупок в один клик</p>
+</header>
+<div class="controls">
+  <input type="text" id="q" placeholder="Поиск по названию или ингредиенту… (например: молоко)">
+  <div id="filters" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+  <select id="sort">
+    <option value="">По умолчанию</option>
+    <option value="fast">Сначала быстрые</option>
+    <option value="long">Сначала долгие</option>
+  </select>
+  <button class="rand-btn" id="rand">🎲 Случайный рецепт</button>
+</div>
+<main>
+  <div id="grid" class="grid"></div>
+  <div id="no-results" style="display:none">Ничего не найдено. Попробуйте другой запрос.</div>
+  <div id="warn" style="display:none">Не удалось загрузить рецепты. Проверьте файл data.js.</div>
+</main>
+<div id="sl-box">
+  <h4>Список покупок (<span id="sl-count">0</span>) <button id="sl-close" style="background:none;border:none;cursor:pointer;font-size:18px">&times;</button></h4>
+  <ul id="sl-list"></ul>
+  <div class="sl-actions">
+    <button id="sl-copy">Копировать</button>
+    <button id="sl-clear">Очистить</button>
   </div>
+</div>
+<button id="sl-fab">🛒 Список покупок: <span id="sl-n">0</span></button>
+<footer>© 2026 ВкусноДом — домашняя кухня каждый день</footer>
+<script src="data.js"></script>
+<script>
 
-  <main>
-    <div id="recipes-grid" class="recipes-grid"></div>
-    <div id="no-results" style="display:none; text-align:center; padding:40px; color:#888;">Ничего не найдено. Попробуйте другой запрос.</div>
-    <div id="data-warning" style="display:none; text-align:center; padding:40px; color:#888;">Не удалось загрузить рецепты. Проверьте файл data.js.</div>
-  </main>
+(function(){
+  var KEY='vk_sl', FKEY='vk_fav', TKEY='vk_theme';
+  var grid=document.getElementById('grid'), q=document.getElementById('q'),
+      fl=document.getElementById('filters'), sortSel=document.getElementById('sort');
+  var fav={};
+  try{ fav=JSON.parse(localStorage.getItem(FKEY))||{} }catch(e){ fav={} }
 
-  <!-- Список покупок -->
-  <div id="shopping-list-container">
-    <div class="sl-header">
-      <span>Список покупок (<span id="sl-count">0</span>)</span>
-      <button id="sl-close-btn" title="Свернуть">&times;</button>
-    </div>
-    <ul id="shopping-list"></ul>
-    <div class="sl-actions">
-      <button id="sl-copy-btn">Копировать</button>
-      <button id="sl-clear-btn">Очистить</button>
-    </div>
-  </div>
-  <button id="sl-toggle-btn">Список покупок: <span id="sl-count-btn">0</span></button>
+  var tb=document.getElementById('theme-btn');
+  tb.addEventListener('click',function(){
+    var d=document.body.classList.toggle('dark');
+    localStorage.setItem(TKEY,d?'1':'0');
+  });
+  if(localStorage.getItem(TKEY)==='1') document.body.classList.add('dark');
 
-  <script src="data.js"></script>
-  <script>
-  (function () {
-    var RECIPE_FOLDER = 'recipe';
-    var STORAGE_KEY = 'vkusnodom_shopping_list';
-
-    function findRecipes() {
-      var names = ['recipes', 'RECIPES', 'data', 'recipesData', 'recipesList', 'dishes', 'menu'];
-      for (var i = 0; i < names.length; i++) {
-        var v = window[names[i]];
-        if (Array.isArray(v) && v.length > 0 && typeof v === 'object') return v;
-      }
-      return null;
-    }
-
-    function pick(obj, keys) {
-      for (var i = 0; i < keys.length; i++) {
-        if (obj[keys[i]] !== undefined && obj[keys[i]] !== null && obj[keys[i]] !== '') return obj[keys[i]];
-      }
-      return null;
-    }
-
-    function getIngredients(r) {
-      var ing = pick(r, ['ingredients', 'ingredient', 'ing', 'products', 'ингредиенты']);
-      if (Array.isArray(ing)) return ing.map(String);
-      if (typeof ing === 'string' && ing.trim()) {
-        return ing.split(/[,;\n]+/).map(function (s) { return s.trim(); }).filter(Boolean);
-      }
-      return ;
-    }
-
-    function escapeHtml(s) {
-      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
-                      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
-    var recipes = findRecipes();
-    var grid = document.getElementById('recipes-grid');
-    var searchInput = document.getElementById('search-input');
-    var filtersBox = document.getElementById('filters');
-    var noResults = document.getElementById('no-results');
-    var dataWarning = document.getElementById('data-warning');
-    var activeFilter = 'Все';
-
-    if (!recipes) {
-      dataWarning.style.display = 'block';
-      return;
-    }
-
-    function buildFilters() {
-      var cats = ;
-      recipes.forEach(function (r) {
-        var c = pick(r, ['category', 'cat', 'type', 'категория', 'раздел']);
-        if (c && cats.indexOf(String(c)) === -1) cats.push(String(c));
-      });
-      var list = ['Все'].concat(cats);
-      filtersBox.innerHTML = '';
-      list.forEach(function (cat) {
-        var btn = document.createElement('button');
-        btn.className = 'filter-btn' + (cat === activeFilter ? ' active' : '');
-        btn.textContent = cat;
-        btn.addEventListener('click', function () {
-          activeFilter = cat;
-          var all = filtersBox.querySelectorAll('.filter-btn');
-          for (var i = 0; i < all.length; i++) all[i].classList.remove('active');
-          btn.classList.add('active');
-          renderGrid();
-        });
-        filtersBox.appendChild(btn);
-      });
-    }
-
-    function renderGrid() {
-      var q = (searchInput.value || '').toLowerCase().trim();
-      grid.innerHTML = '';
-      var shown = 0;
-
-      recipes.forEach(function (r) {
-        var title = String(pick(r, ['title', 'name', 'dish', 'название']) || 'Рецепт');
-        var time = pick(r, ['time', 'minutes', 'время']);
-        var cat = pick(r, ['category', 'cat', 'type', 'категория']);
-        var img = pick(r, ['image', 'img', 'photo', 'картинка']);
-        var ing = getIngredients(r);
-
-        var matchQ = !q || title.toLowerCase().indexOf(q) !== -1 ||
-          ing.join(' ').toLowerCase().indexOf(q) !== -1;
-        var matchC = activeFilter === 'Все' || (cat && String(cat) === activeFilter);
-        if (!matchQ || !matchC) return;
-        shown++;
-
-        var card = document.createElement('a');
-        card.className = 'recipe-card';
-
-        var slug = title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-        card.href = RECIPE_FOLDER + '/' + slug + '.html';
-
-        var imgHtml;
-        if (img) {
-          imgHtml = '<img class="card-img" src="' + escapeHtml(img) + '" alt="' + escapeHtml(title) + '">';
-        } else {
-          imgHtml = '<div class="card-img"></div>';
-        }
-
-        card.innerHTML = imgHtml +
-          '<div class="card-body">' +
-            '<h3 class="card-title">' + escapeHtml(title) + '</h3>' +
-            '<div class="card-meta">' + escapeHtml(cat ? cat : '') + (time ? ' • ' + escapeHtml(time) : '') +
-              (ing.length ? ' • ' + ing.length + ' ингр.' : '') + '</div>' +
-          '</div>';
-
-        var btn = document.createElement('button');
-        btn.className = 'sl-add-btn';
-        btn.textContent = 'В список покупок';
-        btn.addEventListener('click', function (e) {
-          e.preventDefault();
-          e.stopPropagation();
-          var items = ing.length ? ing : [title + ' (ингредиенты)'];
-          var added = 0;
-          items.forEach(function (x) {
-            if (addItem(x)) added++;
-          });
-          btn.textContent = 'Добавлено: ' + added;
-          btn.classList.add('sl-added');
-          setTimeout(function () {
-            btn.textContent = 'В список покупок';
-            btn.classList.remove('sl-added');
-          }, 1500);
-        });
-        card.querySelector('.card-body').appendChild(btn);
-
-        grid.appendChild(card);
-      });
-
-      noResults.style.display = shown === 0 ? 'block' : 'none';
-    }
-
-    function getList() {
-      try {
-        var raw = localStorage.getItem(STORAGE_KEY);
-        return raw ? JSON.parse(raw) : ;
-      } catch (e) { return ; }
-    }
-    function saveList(list) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-      updateCounts();
-    }
-    function addItem(item) {
-      var list = getList();
-      if (list.indexOf(item) !== -1) return false;
-      list.push(item);
-      saveList(list);
-      return true;
-    }
-    function removeFromList(index) {
-      var list = getList();
-      list.splice(index, 1);
-      saveList(list);
-      renderList();
-    }
-    function updateCounts() {
-      var n = getList().length;
-      document.getElementById('sl-count').textContent = n;
-      document.getElementById('sl-count-btn').textContent = n;
-      document.getElementById('sl-toggle-btn').style.display = n > 0 ? 'block' : 'none';
-      document.getElementById('shopping-list-container').style.display = n > 0 ? 'block' : 'none';
-    }
-    function renderList() {
-      var list = getList();
-      var ul = document.getElementById('shopping-list');
-      ul.innerHTML = '';
-      list.forEach(function (item, i) {
-        var li = document.createElement('li');
-        var span = document.createElement('span');
-        span.textContent = item;
-        var del = document.createElement('button');
-        del.textContent = '×';
-        del.addEventListener('click', function () { removeFromList(i); });
-        li.appendChild(span);
-        li.appendChild(del);
-        ul.appendChild(li);
-      });
-      updateCounts();
-    }
-
-    document.getElementById('sl-clear-btn').addEventListener('click', function () {
-      saveList();
-      renderList();
+  function getList(){ try{ return JSON.parse(localStorage.getItem(KEY))||[] }catch(e){ return [] } }
+  function saveList(l){ localStorage.setItem(KEY,JSON.stringify(l)); renderSl(); }
+  function addItems(items){
+    var l=getList(),a=0;
+    items.forEach(function(x){ if(l.indexOf(x)===-1){ l.push(x); a++; } });
+    saveList(l); return a;
+  }
+  function renderSl(){
+    var l=getList(), ul=document.getElementById('sl-list');
+    document.getElementById('sl-count').textContent=l.length;
+    document.getElementById('sl-n').textContent=l.length;
+    document.getElementById('sl-fab').style.display=l.length?'block':'none';
+    ul.innerHTML='';
+    l.forEach(function(x,i){
+      var li=document.createElement('li');
+      var s=document.createElement('span'); s.textContent=x;
+      var b=document.createElement('button'); b.textContent='\u00d7';
+      b.addEventListener('click',function(){ l.splice(i,1); saveList(l); });
+      li.appendChild(s); li.appendChild(b); ul.appendChild(li);
     });
-    document.getElementById('sl-copy-btn').addEventListener('click', function () {
-      var text = getList().map(function (i, n) { return (n + 1) + '. ' + i; }).join('\n');
-      navigator.clipboard.writeText(text).then(function () {
-        var b = document.getElementById('sl-copy-btn');
-        b.textContent = 'Скопировано!';
-        setTimeout(function () { b.textContent = 'Копировать'; }, 1500);
+  }
+  document.getElementById('sl-fab').addEventListener('click',function(){
+    document.getElementById('sl-box').style.display='block'; this.style.display='none';
+  });
+  document.getElementById('sl-close').addEventListener('click',function(){
+    document.getElementById('sl-box').style.display='none';
+    if(getList().length) document.getElementById('sl-fab').style.display='block';
+  });
+  document.getElementById('sl-clear').addEventListener('click',function(){ saveList([]); });
+  document.getElementById('sl-copy').addEventListener('click',function(){
+    var t=getList().map(function(x,i){ return (i+1)+'. '+x }).join('\n');
+    var btn=document.getElementById('sl-copy');
+    navigator.clipboard.writeText(t).then(function(){
+      btn.textContent='Скопировано!';
+      setTimeout(function(){ btn.textContent='Копировать'; },1500);
+    });
+  });
+  document.getElementById('rand').addEventListener('click',function(){
+    location.hash='#r-'+RECIPES[Math.floor(Math.random()*RECIPES.length)].slug;
+    render();
+  });
+
+  var cats=['Все'];
+  RECIPES.forEach(function(r){ if(cats.indexOf(r.cat)===-1) cats.push(r.cat); });
+  var active='Все';
+  cats.forEach(function(c){
+    var b=document.createElement('button');
+    b.className='filter-btn'+(c===active?' active':''); b.textContent=c;
+    b.addEventListener('click',function(){
+      active=c;
+      fl.querySelectorAll('.filter-btn').forEach(function(x){ x.classList.remove('active') });
+      b.classList.add('active'); render();
+    });
+    fl.appendChild(b);
+  });
+
+  function fmt(m){
+    if(m<60) return m+' мин';
+    var h=Math.floor(m/60), mm=m%60;
+    return h+' ч'+(mm?' '+mm+' мин':'');
+  }
+  function render(){
+    var s=(q.value||'').toLowerCase().trim(), sort=sortSel.value, n=0;
+    grid.innerHTML='';
+    var list=RECIPES.slice();
+    if(sort==='fast') list.sort(function(a,b){ return a.time-b.time });
+    if(sort==='long') list.sort(function(a,b){ return b.time-a.time });
+    list.forEach(function(r){
+      var hay=(r.title+' '+r.cat+' '+r.ing.join(' ')).toLowerCase();
+      if(s && hay.indexOf(s)===-1) return;
+      if(active!=='Все' && r.cat!==active) return;
+      n++;
+      var a=document.createElement('a');
+      a.className='card'; a.href='recipe/'+r.slug+'.html';
+      var tile=document.createElement('div');
+      tile.className='tile';
+      tile.style.background='linear-gradient(135deg,'+r.c1+','+r.c2+')';
+      tile.textContent=r.emoji;
+      var favB=document.createElement('button');
+      favB.className='fav'; favB.textContent=fav[r.slug]?'⭐':'☆';
+      favB.addEventListener('click',function(e){
+        e.preventDefault(); e.stopPropagation();
+        if(fav[r.slug]){ delete fav[r.slug]; } else { fav[r.slug]=1; }
+        localStorage.setItem(FKEY,JSON.stringify(fav));
+        favB.textContent=fav[r.slug]?'⭐':'☆';
       });
+      var body=document.createElement('div'); body.className='cbody';
+      var h=document.createElement('h3'); h.className='ctitle'; h.textContent=r.title;
+      var m=document.createElement('div'); m.className='cmeta';
+      m.textContent=r.cat+' • '+fmt(r.time)+' • '+r.diff+' • '+r.ing.length+' ингр.';
+      var b=document.createElement('button'); b.className='cbtn'; b.textContent='🛒 В список покупок';
+      b.addEventListener('click',function(e){
+        e.preventDefault(); e.stopPropagation();
+        var k=addItems(r.ing);
+        b.textContent=k>0?'Добавлено: '+k+' ✓':'Уже в списке';
+        b.classList.add('added');
+        setTimeout(function(){ b.textContent='🛒 В список покупок'; b.classList.remove('added'); },1600);
+      });
+      body.appendChild(h); body.appendChild(m); body.appendChild(b);
+      a.appendChild(tile); a.appendChild(favB); a.appendChild(body);
+      grid.appendChild(a);
     });
-    document.getElementById('sl-close-btn').addEventListener('click', function () {
-      document.getElementById('shopping-list-container').style.display = 'none';
-      document.getElementById('sl-toggle-btn').style.display = 'block';
-    });
-    document.getElementById('sl-toggle-btn').addEventListener('click', function () {
-      document.getElementById('shopping-list-container').style.display = 'block';
-      document.getElementById('sl-toggle-btn').style.display = 'none';
-    });
+    document.getElementById('no-results').style.display=n?'none':'block';
+  }
+  q.addEventListener('input',render);
+  sortSel.addEventListener('change',render);
+  render(); renderSl();
+})();
 
-    searchInput.addEventListener('input', renderGrid);
-
-    buildFilters();
-    renderGrid();
-    renderList();
-  })();
-  </script>
+</script>
 </body>
 </html>

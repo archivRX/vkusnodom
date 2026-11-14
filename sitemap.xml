@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://archivRX.github.io/vkusnodom/</loc>
-    <lastmod>2023-11-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
+  <url><loc>https://archivrx.github.io/vkusnodom/</loc><priority>1.0</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/blini.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/syrniki.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/oladi.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/pirozhki.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/pizza.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/lazania.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/karbonara.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/grecheskiy.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/cezar.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/olivie.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/borsch.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/gorohoviy.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/solyanka.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/kuriniriksha.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/gribigrechka.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/kotlety.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/shashlik.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/zharcoe.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/pilaf.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/sharlotka.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/medovik.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/tiramisu.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/fondan.html</loc><priority>0.8</priority></url>
+  <url><loc>https://archivrx.github.io/vkusnodom/recipe/pannacotta.html</loc><priority>0.8</priority></url>
 </urlset>
