@@ -3,40 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ВкусноДом — домашние рецепты с пошаговыми инструкциями</title>
-  <meta name="description" content="24 проверенных домашних рецепта с пошаговыми инструкциями: супы, основные блюда, выпечка, салаты и десерты.">
-  <style>
-    body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: #faf7f2; color: #333; }
-    header { background: #ff6b35; color: #fff; padding: 20px; text-align: center; }
-    header h1 { margin: 0 0 6px; font-size: 26px; }
-    header p { margin: 0; opacity: 0.9; }
-    .controls { padding: 15px 20px; max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; align-items: center; }
-    #search-input { flex: 1; min-width: 250px; max-width: 500px; padding: 12px 16px; border-radius: 24px; border: 1px solid #eee; outline: none; font-size: 16px; }
-    .filter-btn { padding: 8px 16px; border: 1px solid #ff6b35; background: #fff; color: #ff6b35; border-radius: 20px; cursor: pointer; font-size: 14px; }
-    .filter-btn.active, .filter-btn:hover { background: #ff6b35; color: #fff; }
-    .recipes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 20px auto; padding: 0 16px 60px; }
-    .recipe-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.2s; display: flex; flex-direction: column; text-decoration: none; color: inherit; }
-    .recipe-card:hover { transform: translateY(-4px); box-shadow: 0 8px 18px rgba(0,0,0,0.12); }
-    .card-img { width: 100%; height: 180px; object-fit: cover; background: #f0e6dc; }
-    .card-body { padding: 15px; display: flex; flex-direction: column; flex: 1; }
-    .card-title { margin: 0 0 8px; font-size: 18px; color: #222; }
-    .card-meta { font-size: 13px; color: #888; margin-bottom: 10px; }
-    .sl-add-btn { margin-top: auto; padding: 10px; background: #ff6b35; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; }
-    .sl-add-btn:hover { background: #e05a2e; }
-    .sl-add-btn.sl-added { background: #2e9e5b; }
-    #no-results { text-align: center; padding: 40px; color: #888; }
-    #shopping-list-container { position: fixed; bottom: 20px; right: 20px; width: 300px; max-height: 70vh; overflow-y: auto; background: #fff; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); padding: 15px; z-index: 1000; border: 1px solid #ddd; display: none; }
-    .sl-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 8px; }
-    .sl-header button { background: none; border: none; cursor: pointer; font-size: 18px; }
-    #shopping-list { list-style: none; padding: 0; margin: 0; max-height: 300px; overflow-y: auto; }
-    #shopping-list li { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid #f2f2f2; font-size: 14px; }
-    #shopping-list li button { background: none; border: none; color: #ff4d4d; cursor: pointer; font-size: 16px; }
-    .sl-actions { display: flex; gap: 8px; margin-top: 12px; }
-    .sl-actions button { flex: 1; padding: 8px; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; }
-    #sl-clear-btn { background: #ff4d4d; color: #fff; }
-    #sl-copy-btn { background: #f0f0f0; color: #333; }
-    #sl-toggle-btn { position: fixed; bottom: 20px; right: 20px; z-index: 999; padding: 12px 20px; background: #ff6b35; color: #fff; border: none; border-radius: 50px; box-shadow: 0 4px 12px rgba(0,0,0,0.25); cursor: pointer; font-size: 16px; display: none; }
-  </style>
+  <title>ВкусноДом — домашние рецепты</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
@@ -51,12 +19,11 @@
 
   <main>
     <div id="recipes-grid" class="recipes-grid"></div>
-    <div id="no-results" style="display:none">Ничего не найдено. Попробуйте другой запрос.</div>
-    <div id="data-warning" style="display:none; text-align:center; padding:40px; color:#888;">
-      Не удалось загрузить рецепты из data.js. Проверьте этот файл.
-    </div>
+    <div id="no-results" style="display:none; text-align:center; padding:40px; color:#888;">Ничего не найдено. Попробуйте другой запрос.</div>
+    <div id="data-warning" style="display:none; text-align:center; padding:40px; color:#888;">Не удалось загрузить рецепты. Проверьте файл data.js.</div>
   </main>
 
+  <!-- Список покупок -->
   <div id="shopping-list-container">
     <div class="sl-header">
       <span>Список покупок (<span id="sl-count">0</span>)</span>
@@ -76,12 +43,11 @@
     var RECIPE_FOLDER = 'recipe';
     var STORAGE_KEY = 'vkusnodom_shopping_list';
 
-    // --- Ищем массив рецептов в data.js ---
     function findRecipes() {
       var names = ['recipes', 'RECIPES', 'data', 'recipesData', 'recipesList', 'dishes', 'menu'];
       for (var i = 0; i < names.length; i++) {
         var v = window[names[i]];
-        if (Array.isArray(v) && v.length > 0 && typeof v[0] === 'object') return v;
+        if (Array.isArray(v) && v.length > 0 && typeof v === 'object') return v;
       }
       return null;
     }
@@ -99,7 +65,7 @@
       if (typeof ing === 'string' && ing.trim()) {
         return ing.split(/[,;\n]+/).map(function (s) { return s.trim(); }).filter(Boolean);
       }
-      return [];
+      return ;
     }
 
     function escapeHtml(s) {
@@ -120,9 +86,8 @@
       return;
     }
 
-    // --- Фильтры ---
     function buildFilters() {
-      var cats = [];
+      var cats = ;
       recipes.forEach(function (r) {
         var c = pick(r, ['category', 'cat', 'type', 'категория', 'раздел']);
         if (c && cats.indexOf(String(c)) === -1) cats.push(String(c));
@@ -144,7 +109,6 @@
       });
     }
 
-    // --- Сетка рецептов ---
     function renderGrid() {
       var q = (searchInput.value || '').toLowerCase().trim();
       grid.innerHTML = '';
@@ -166,8 +130,7 @@
         var card = document.createElement('a');
         card.className = 'recipe-card';
 
-        var slug = title.toLowerCase().replace(/\s+/g, '-');
-        if (r.filename) slug = String(r.filename).replace(/\.html$/, '');
+        var slug = title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
         card.href = RECIPE_FOLDER + '/' + slug + '.html';
 
         var imgHtml;
@@ -210,12 +173,11 @@
       noResults.style.display = shown === 0 ? 'block' : 'none';
     }
 
-    // --- Список покупок ---
     function getList() {
       try {
         var raw = localStorage.getItem(STORAGE_KEY);
-        return raw ? JSON.parse(raw) : [];
-      } catch (e) { return []; }
+        return raw ? JSON.parse(raw) : ;
+      } catch (e) { return ; }
     }
     function saveList(list) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
@@ -260,7 +222,7 @@
     }
 
     document.getElementById('sl-clear-btn').addEventListener('click', function () {
-      saveList([]);
+      saveList();
       renderList();
     });
     document.getElementById('sl-copy-btn').addEventListener('click', function () {
