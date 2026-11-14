@@ -1,34 +1,87 @@
 <!DOCTYPE html>
-<html lang="ru"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Шарлотка с яблоками — рецепт с пошаговой инструкцией | ВкусноДом</title>
-<meta name="description" content="Воздушный бисквит с яблоками и корицей. Тесто делается за 10 минут. Пошаговый рецепт: 60 минут, 5 ингредиентов.">
-<link rel="stylesheet" href="../style.css"><link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍲</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Recipe", "name": "Шарлотка с яблоками", "description": "Воздушный бисквит с яблоками и корицей. Тесто делается за 10 минут.", "recipeCategory": "Выпечка", "totalTime": "PT60M", "recipeIngredient": ["Яблоки — 4–5 шт", "Яйца — 4 шт", "Сахар — 180 г", "Мука — 160 г", "Корица, ванилин"], "recipeInstructions": [{"@type": "HowToStep", "text": "Взбейте яйца с сахаром 5–7 минут до плотной пены — это ключ к пышности."}, {"@type": "HowToStep", "text": "Аккуратно вмешайте муку лопаткой снизу вверх."}, {"@type": "HowToStep", "text": "Яблоки нарежьте дольками, перемешайте с корицей."}, {"@type": "HowToStep", "text": "Выложите яблоки в форму, залейте тестом."}, {"@type": "HowToStep", "text": "Пеките 35 минут при 180°C до сухой зубочистки."}]}</script>
-</head><body>
-<nav><div class="wrap"><a class="logo" href="../index.html">ВкусноДом<span>.ru</span></a><div><a href="../index.html">Все рецепты</a><button id="theme" onclick="toggleTheme()" title="Тема">🌙</button></div></div></nav>
-<article class="rp">
-<div class="emoji-hero">🍎</div>
-<h1>Шарлотка с яблоками</h1>
-<div class="rmeta"><span>⏱ 60 мин</span><span>🔥 Сложность: ★☆☆</span><span>📂 Выпечка</span><span>🧾 5 ингредиентов</span></div>
-<p style="font-size:17px;line-height:1.65;color:var(--mut)">Воздушный бисквит с яблоками и корицей. Тесто делается за 10 минут.</p>
-<h2>Ингредиенты</h2><ul class="ing"><li>Яблоки — 4–5 шт</li>
-<li>Яйца — 4 шт</li>
-<li>Сахар — 180 г</li>
-<li>Мука — 160 г</li>
-<li>Корица, ванилин</li></ul>
-<h2>Пошаговое приготовление</h2><div class="step"><div class="n">1</div><p>Взбейте яйца с сахаром 5–7 минут до плотной пены — это ключ к пышности.</p></div>
-<div class="step"><div class="n">2</div><p>Аккуратно вмешайте муку лопаткой снизу вверх.</p></div>
-<div class="step"><div class="n">3</div><p>Яблоки нарежьте дольками, перемешайте с корицей.</p></div>
-<div class="step"><div class="n">4</div><p>Выложите яблоки в форму, залейте тестом.</p></div>
-<div class="step"><div class="n">5</div><p>Пеките 35 минут при 180°C до сухой зубочистки.</p></div>
-<div class="tip"><b>💡 Секрет шефа:</b> Взбивание яиц до пышной пены — 80% успеха. Миксером, не меньше 5 минут.</div>
-<div class="next"><a href="syirniki.html">← Сырники пышные</a><a href="pirozhki.html">Пирожки с картошкой жареные →</a></div>
-<a class="back" href="../index.html">← Вернуться ко всем рецептам</a>
-</article>
+<meta name="description" content="Воздушный бисквит с яблоками — самая простая домашняя выпечка.">
+<meta property="og:title" content="Шарлотка с яблоками — рецепт | ВкусноДом">
+<meta property="og:description" content="Воздушный бисквит с яблоками — самая простая домашняя выпечка.">
+<link rel="stylesheet" href="../style.css">
+<style>
+.rwrap{max-width:760px;margin:26px auto;padding:0 16px 60px}
+.back{display:inline-block;margin-bottom:16px;color:var(--acc);text-decoration:none;font-size:15px}
+.emoji-hero{font-size:72px;text-align:center;background:linear-gradient(135deg,#d4f0ff,#a5d8ff);border-radius:18px;padding:30px 0;margin-bottom:18px}
+h1.r{font-size:30px;margin:6px 0}
+.badges{color:var(--muted);font-size:14px;margin:0 0 14px}
+.desc{font-size:17px;line-height:1.6}
+h2{color:var(--acc);margin:26px 0 12px;font-size:21px}
+ul.ing{background:var(--card);border-radius:12px;padding:16px 16px 16px 34px;box-shadow:var(--shadow);line-height:1.9}
+ol.steps{padding-left:20px;line-height:1.7;counter-reset:s;list-style:none}
+ol.steps li{margin-bottom:12px;background:var(--card);border-radius:10px;padding:12px 14px 12px 46px;box-shadow:var(--shadow);position:relative;cursor:pointer}
+ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:12px;top:12px;width:24px;height:24px;background:var(--acc);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px}
+ol.steps li.done{opacity:.5;text-decoration:line-through}
+.tip{background:var(--card);border-left:4px solid var(--acc);border-radius:8px;padding:14px 18px;margin:24px 0;font-size:15px}
+.cbtn{width:100%;max-width:340px;margin:18px 0;padding:12px;background:var(--acc);color:#fff;border:none;border-radius:24px;font-size:15px;cursor:pointer}
+.cbtn.added{background:#2e9e5b}
+.neighbors{display:flex;justify-content:space-between;gap:10px;margin-top:30px;flex-wrap:wrap}
+.neighbors a{color:var(--acc);text-decoration:none;font-size:15px;background:var(--card);padding:10px 16px;border-radius:24px;box-shadow:var(--shadow)}
+@media(max-width:600px){h1.r{font-size:24px}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a class="logo" href="../index.html">🍳 ВкусноДом</a>
+  <button class="theme-btn" id="theme-btn" title="Тёмная тема">🌙</button>
+</nav>
+<div class="rwrap">
+  <a class="back" href="../index.html">← Все рецепты</a>
+  <div class="emoji-hero">🍎</div>
+  <h1 class="r">Шарлотка с яблоками</h1>
+  <p class="badges">⏱ 1 ч · Сложность ★☆☆ · Выпечка · 6 ингредиентов</p>
+  <p class="desc">Воздушный бисквит с яблоками — самая простая домашняя выпечка.</p>
+  <h2>Ингредиенты</h2>
+  <ul class="ing" id="ing"></ul>
+  <button class="cbtn" id="add-btn">🛒 В список покупок</button>
+  <h2>Пошаговое приготовление</h2>
+  <ol class="steps" id="steps"></ol>
+  <div class="tip">💡 <b>Секрет шефа:</b> Взбивайте яйца именно с сахаром до увеличения втрое — это подъём шарлотки.</div>
+  <nav class="neighbors" id="nb"></nav>
+</div>
 <footer>© 2026 ВкусноДом — домашняя кухня каждый день</footer>
+<script src="../data.js"></script>
 <script>
-function toggleTheme(){var d=document.documentElement;var dark=d.dataset.theme==='dark';if(dark){delete d.dataset.theme}else{d.dataset.theme='dark'}document.getElementById('theme').textContent=dark?'🌙':'☀️';localStorage.setItem('theme',dark?'':'dark');}
-if(localStorage.getItem('theme')==='dark'){document.documentElement.dataset.theme='dark';document.getElementById('theme').textContent='☀️';}
+(function(){
+  if(localStorage.getItem('vk_theme')==='1') document.body.classList.add('dark');
+  document.getElementById('theme-btn').addEventListener('click',function(){
+    var x=document.body.classList.toggle('dark');
+    localStorage.setItem('vk_theme',x?'1':'0');
+  });
+  var slug=location.pathname.split('/').pop().replace('.html','');
+  var i=RECIPES.findIndex(function(r){return r.slug===slug});
+  if(i<0){ document.body.innerHTML='<div style="text-align:center;padding:60px"><h1>Рецепт не найден</h1><a href="../index.html">На главную</a></div>'; return; }
+  var r=RECIPES[i];
+  function fmt(m){ if(m<60)return m+' мин'; var h=Math.floor(m/60),mm=m%60; return h+' ч'+(mm?' '+mm+' мин':''); }
+  var ing=document.getElementById('ing');
+  r.ing.forEach(function(x){ var li=document.createElement('li'); li.textContent=x; ing.appendChild(li); });
+  var st=document.getElementById('steps');
+  r.steps.forEach(function(x){ var li=document.createElement('li'); li.textContent=x; li.addEventListener('click',function(){ li.classList.toggle('done'); }); st.appendChild(li); });
+  var nb=document.getElementById('nb');
+  var prev=RECIPES[(i-1+RECIPES.length)%RECIPES.length], next=RECIPES[(i+1)%RECIPES.length];
+  var a1=document.createElement('a'); a1.href=prev.slug+'.html'; a1.textContent='← '+prev.title;
+  var a2=document.createElement('a'); a2.href=next.slug+'.html'; a2.textContent=next.title+' →';
+  nb.appendChild(a1); nb.appendChild(a2);
+  var btn=document.getElementById('add-btn');
+  btn.addEventListener('click',function(){
+    var KEY='vk_sl', l;
+    try{ l=JSON.parse(localStorage.getItem(KEY))||[] }catch(e){ l=[] }
+    var a=0; r.ing.forEach(function(x){ if(l.indexOf(x)===-1){ l.push(x); a++; } });
+    localStorage.setItem(KEY,JSON.stringify(l));
+    btn.textContent=a>0?'Добавлено: '+a+' ✓':'Уже в списке';
+    btn.classList.add('added');
+    setTimeout(function(){ btn.textContent='🛒 В список покупок'; btn.classList.remove('added'); },1600);
+  });
+})();
 </script>
-</body></html>
+</body>
+</html>
